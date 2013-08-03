@@ -54,10 +54,6 @@
       return _results;
     };
 
-    Interests.test = function() {
-      return true;
-    };
-
     Interests.extend = function(Gremlin) {
       return Gremlin.prototype.emit = function(name, data) {
         return Controller.dispatch(name, data);

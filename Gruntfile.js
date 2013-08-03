@@ -2,6 +2,12 @@
 module.exports = function (grunt) {
   'use strict';
 
+  var EXTENSION_NAME = "interests";
+  var coffeeObj = {},
+    distObj = {};
+  coffeeObj['dist/gremlin.'+EXTENSION_NAME+'.js'] = ['src/'+EXTENSION_NAME+'.coffee'];
+  distObj['dist/gremlin.'+EXTENSION_NAME+'.min.js'] = ['dist/gremlin.'+EXTENSION_NAME+'.js'];
+
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -17,9 +23,7 @@ module.exports = function (grunt) {
           bare: false,
           sourceMap: true
         },
-        files: {
-          'dist/gremlin.interests.js': ['src/Interests.coffee']
-        }
+        files: coffeeObj
       }
     },
     uglify: {
@@ -31,9 +35,7 @@ module.exports = function (grunt) {
         wrap: false
       },
       dist: {
-        files: {
-          'dist/gremlin.interests.min.js': ['dist/gremlin.interests.js']
-        }
+        files: distObj
       }
     },
     clean: {

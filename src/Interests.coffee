@@ -18,9 +18,6 @@ class Interests
       throw new Error("Handler \"#{handler}\" for the interest \"#{interest}\" is missing!") if typeof @[handler] isnt 'function'
       Controller.registerHandler interest, @[handler], @
 
-  @test: ->
-    yes
-
   @extend: (Gremlin) ->
     Gremlin::emit = (name, data) ->
       Controller.dispatch name, data
