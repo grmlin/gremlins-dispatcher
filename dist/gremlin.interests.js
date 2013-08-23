@@ -68,6 +68,6 @@
 
   }).call(this);
 
-  GremlinJS.registerExtension(Interests);
+  Gremlin.registerExtension(Interests);
 
 }).call(this);

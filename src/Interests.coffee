@@ -25,4 +25,4 @@ class Interests
   @bind: (gremlinInstance) ->
     addInterests.call gremlinInstance
     
-GremlinJS.registerExtension Interests 
+Gremlin.registerExtension Interests
