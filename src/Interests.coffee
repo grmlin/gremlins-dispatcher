@@ -8,8 +8,9 @@ class Interests
 
     @dispatch: (interest, data) ->
       unless cache[interest] is undefined
-        item.handler.call item.ctx, data for item in cache[interest]
-
+        window.setTimeout =>
+          item.handler.call item.ctx, data for item in cache[interest]
+        , 10
 
   addInterests = ->
     interests = @klass.interests ? {}

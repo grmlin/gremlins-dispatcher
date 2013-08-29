@@ -24,15 +24,18 @@
       };
 
       Controller.dispatch = function(interest, data) {
-        var item, _i, _len, _ref, _results;
+        var _this = this;
         if (cache[interest] !== void 0) {
-          _ref = cache[interest];
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            item = _ref[_i];
-            _results.push(item.handler.call(item.ctx, data));
-          }
-          return _results;
+          return window.setTimeout(function() {
+            var item, _i, _len, _ref, _results;
+            _ref = cache[interest];
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              item = _ref[_i];
+              _results.push(item.handler.call(item.ctx, data));
+            }
+            return _results;
+          }, 10);
         }
       };
 
