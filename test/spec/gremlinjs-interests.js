@@ -3,12 +3,7 @@
 
 describe('gremlinjs-interests', function () {
 
-    it('adds #emit to every gremlin', function () {
-        expect(G.Gizmo.prototype.emit).to.be.a('function');
-    });
-
-
-    it('reads interessts from a gremlin and listens', function (done) {
+    it('reads interests from a gremlin and listens', function (done) {
         var elA = document.createElement('div'),
             elB = document.createElement('div'),
             elC = document.createElement('div'),
@@ -27,6 +22,12 @@ describe('gremlinjs-interests', function () {
 
         G.define('InterestsMapDispatcher', function () {
                 this.emit('FOO', data)
+            },
+            {
+
+            },
+            {
+                include: 'interests'
             }
         );
         G.define('InterestsMapListener', function () {
@@ -45,6 +46,7 @@ describe('gremlinjs-interests', function () {
                 }
             },
             {
+                include: 'interests',
                 interests: {
                     'FOO': 'onFoo'
                 }
