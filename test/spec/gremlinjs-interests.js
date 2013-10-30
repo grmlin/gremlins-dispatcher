@@ -3,7 +3,7 @@
 
 describe('gremlinjs-interests', function () {
 
-    it('reads interessts from a gremlin and listens', function (done) {
+    it('reads interests from a gremlin and listens', function (done) {
         var elA = document.createElement('div'),
             elB = document.createElement('div'),
             elC = document.createElement('div'),
