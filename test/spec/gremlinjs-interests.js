@@ -20,7 +20,7 @@ describe('gremlinjs-interests', function () {
         document.body.appendChild(elC);
         document.body.appendChild(elA);
 
-        G.define('InterestsMapDispatcher', function () {
+        G.add('InterestsMapDispatcher', G.Gizmo.extend(function () {
                 this.emit('FOO', data)
             },
             {
@@ -29,8 +29,8 @@ describe('gremlinjs-interests', function () {
             {
                 include: 'interests'
             }
-        );
-        G.define('InterestsMapListener', function () {
+        ));
+        G.add('InterestsMapListener', G.Gizmo.extend(function () {
 
             },
             {
@@ -51,7 +51,7 @@ describe('gremlinjs-interests', function () {
                     'FOO': 'onFoo'
                 }
             }
-        );
+        ));
     });
 
 });
