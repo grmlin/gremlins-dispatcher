@@ -11,7 +11,7 @@ class Controller
       , 10
 
 addInterests = ->
-  interests = @klass.interests ? {}
+  interests = @constructor.interests ? {}
   for interest, handler of interests
     #console.log interest, @[handler]
     throw new Error("Handler \"#{handler}\" for the interest \"#{interest}\" is missing!") if typeof @[handler] isnt 'function'

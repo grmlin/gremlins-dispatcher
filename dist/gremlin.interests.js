@@ -40,7 +40,7 @@
 
   addInterests = function() {
     var handler, interest, interests, _ref, _results;
-    interests = (_ref = this.klass.interests) != null ? _ref : {};
+    interests = (_ref = this.constructor.interests) != null ? _ref : {};
     _results = [];
     for (interest in interests) {
       handler = interests[interest];
