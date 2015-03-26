@@ -1,4 +1,3 @@
-gremlinjs-interests
-===================
+# gremlins-interests
 
-GremlinJS Interests (PubSub) extension
+gremlin.js interests (PubSub) extension

@@ -1,18 +1,20 @@
 {
-    "name": "gremlinjs-interests",
-    "version": "0.3.0",
-    "main": "./src/Interests.coffee",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/grmlin/gremlinjs-interests.git"
-    },
-    "dependencies": {},
-    "devDependencies": {
-        "grunt": "~0.4.0",
-        "grunt-contrib-coffee": "~0.6.4",
-        "grunt-contrib-uglify": "~0.2.0",
-        "grunt-contrib-clean": "~0.4.0",
-        "grunt-contrib-connect": "~0.3.0"
-    }
+  "name": "gremlins-interests",
+  "version": "0.4.0",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grmlin/gremlins-interests.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "gremlins": "^0.8.1",
+    "gulp": "^3.8.11",
+    "gulp-connect": "^2.2.0",
+    "gulp-rename": "^1.2.0",
+    "through2": "^0.6.3"
+  }
 }
