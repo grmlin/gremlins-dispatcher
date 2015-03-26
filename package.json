@@ -1,7 +1,10 @@
 {
   "name": "gremlins-interests",
   "version": "0.4.0",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "author": {
+    "name": "Andreas Wehr"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
