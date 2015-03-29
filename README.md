@@ -30,7 +30,7 @@ download from `dist`
 
 ```js
 var gremlins = require('gremlins'),
-  dispatcher = require('gremlins-dispatcher');
+  dispatcher = require('gremlins-dispatcher'); // window.gremlinsDispatcher without amd/commonjs
   
 gremlins.create({
     mixins: [dispatcher],
