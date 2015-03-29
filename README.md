@@ -1,6 +1,6 @@
-# gremlins-interests
+# gremlins-dispatcher
 
-gremlin.js interests (PubSub) extension
+gremlin.js dispatcher mixin. Easy component interoperability.
 
 ## Installation
 
