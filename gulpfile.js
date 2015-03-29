@@ -10,7 +10,7 @@ gulp.task('scriptsTest', function () {
 	return gulp.src('test/src/gremlins-interests.js')
 		.pipe(through2.obj(function (file, enc, next) {
 			browserify(file.path, {
-				standalone: 'gremlinsInterests',
+				standalone: 'dispatcher',
 				debug: false
 			})
 				.transform('babelify')
@@ -27,7 +27,7 @@ gulp.task('scripts', function () {
 	return gulp.src('index.js')
 		.pipe(through2.obj(function (file, enc, next) {
 			browserify(file.path, {
-				standalone: 'gremlinsInterests',
+				standalone: 'dispatcher',
 				debug: false
 			})
 				.transform('babelify')

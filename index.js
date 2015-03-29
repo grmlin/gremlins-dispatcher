@@ -2,31 +2,31 @@
 var cache = {};
 
 var Emitter = {
-	registerHandler(interest, handler, spec) {
+	registerHandler(handlerName, handler, spec) {
 		if (typeof handler !== 'function') {
-			throw new Error(`Handler for the interest ${interest} is missing!`);
+			throw new Error(`Handler for the interest ${handlerName} is missing!`);
 		}
-		cache[interest] = cache[interest] || [];
-		cache[interest].push({
+		cache[handlerName] = cache[handlerName] || [];
+		cache[handlerName].push({
 			handler: handler,
 			spec: spec
 		});
 	},
-	dispatch(interest, data) {
-		if (cache[interest] !== undefined) {
+	dispatch(handlerName, data) {
+		if (cache[handlerName] !== undefined) {
 			window.setTimeout(()=> {
-				cache[interest].forEach(callbackObj => callbackObj.handler.call(callbackObj.spec, data));
+				cache[handlerName].forEach(callbackObj => callbackObj.handler.call(callbackObj.spec, data));
 			}, 10);
 		}
 	}
 };
 
 function addInterests(spec) {
-	var interests = spec.interests || {};
+	var handlers = spec.listeners || {};
 
-	for (var interest in interests) {
-		if (interests.hasOwnProperty(interest)) {
-			Emitter.registerHandler(interest, spec[interests[interest]], spec);
+	for (var handler in handlers) {
+		if (handlers.hasOwnProperty(handler)) {
+			Emitter.registerHandler(handler, spec[handlers[handler]], spec);
 		}
 	}
 }

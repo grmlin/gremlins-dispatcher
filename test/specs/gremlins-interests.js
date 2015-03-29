@@ -1,22 +1,22 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.gremlinsInterests = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.dispatcher = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 var cache = {};
 
 var Emitter = {
-	registerHandler: function registerHandler(interest, handler, spec) {
+	registerHandler: function registerHandler(handlerName, handler, spec) {
 		if (typeof handler !== "function") {
-			throw new Error("Handler for the interest " + interest + " is missing!");
+			throw new Error("Handler for the interest " + handlerName + " is missing!");
 		}
-		cache[interest] = cache[interest] || [];
-		cache[interest].push({
+		cache[handlerName] = cache[handlerName] || [];
+		cache[handlerName].push({
 			handler: handler,
 			spec: spec
 		});
 	},
-	dispatch: function dispatch(interest, data) {
-		if (cache[interest] !== undefined) {
+	dispatch: function dispatch(handlerName, data) {
+		if (cache[handlerName] !== undefined) {
 			window.setTimeout(function () {
-				cache[interest].forEach(function (callbackObj) {
+				cache[handlerName].forEach(function (callbackObj) {
 					return callbackObj.handler.call(callbackObj.spec, data);
 				});
 			}, 10);
@@ -25,11 +25,11 @@ var Emitter = {
 };
 
 function addInterests(spec) {
-	var interests = spec.interests || {};
+	var handlers = spec.listeners || {};
 
-	for (var interest in interests) {
-		if (interests.hasOwnProperty(interest)) {
-			Emitter.registerHandler(interest, spec[interests[interest]], spec);
+	for (var handler in handlers) {
+		if (handlers.hasOwnProperty(handler)) {
+			Emitter.registerHandler(handler, spec[handlers[handler]], spec);
 		}
 	}
 }
@@ -52,7 +52,7 @@ module.exports = {
 "use strict";
 
 var gremlins = require("gremlins"),
-    gremlinsInterests = require("../../index");
+    dispatcher = require("../../index");
 
 describe("gremlinjs-interests", function () {
 
@@ -60,9 +60,9 @@ describe("gremlinjs-interests", function () {
 		var count = 0;
 
 		gremlins.create({
-			mixins: [gremlinsInterests],
+			mixins: [dispatcher],
 			name: "interests",
-			interests: {
+			listeners: {
 				FOO: "onFoo"
 			},
 			initialize: function initialize() {
@@ -87,7 +87,7 @@ describe("gremlinjs-interests", function () {
 		});
 
 		gremlins.create({
-			mixins: [gremlinsInterests],
+			mixins: [dispatcher],
 			name: "interests2",
 			initialize: function initialize() {
 				var _this = this;

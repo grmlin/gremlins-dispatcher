@@ -1,6 +1,6 @@
 {
-  "name": "gremlins-interests",
-  "version": "0.4.0",
+  "name": "gremlins-dispatcher",
+  "version": "0.4.1",
   "main": "dist/index.js",
   "author": {
     "name": "Andreas Wehr"
@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/grmlin/gremlins-interests.git"
+    "url": "https://github.com/grmlin/gremlins-dispatcher.git"
   },
   "dependencies": {},
   "devDependencies": {

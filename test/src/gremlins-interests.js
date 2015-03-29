@@ -1,5 +1,7 @@
+'use strict';
+
 var gremlins = require('gremlins'),
-	gremlinsInterests = require('../../index');
+	dispatcher = require('../../index');
 
 describe('gremlinjs-interests', function () {
 
@@ -7,9 +9,9 @@ describe('gremlinjs-interests', function () {
 		var count = 0;
 
 		gremlins.create({
-			mixins: [gremlinsInterests],
+			mixins: [dispatcher],
 			name: 'interests',
-			interests: {
+			listeners: {
 				'FOO': 'onFoo'
 			},
 			initialize() {
@@ -34,7 +36,7 @@ describe('gremlinjs-interests', function () {
 		});
 
 		gremlins.create({
-			mixins: [gremlinsInterests],
+			mixins: [dispatcher],
 			name: 'interests2',
 			initialize() {
 				window.setTimeout(()=>this.emit('FOO', {foo: 'foo'}), 100);

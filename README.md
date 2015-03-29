@@ -6,17 +6,17 @@ gremlin.js interests (PubSub) extension
 
 ### NPM
 
-    $ npm install gremlins-interests
+    $ npm install gremlins-dispatcher
     
 ### Bower
     
-    $ bower install gremlins-interests
+    $ bower install gremlins-dispatcher
     
 ### Classic
 
 download from `dist` 
 
-    <script src="gremlins-interests.js" />
+    <script src="gremlins-dispatcher.js" />
 
 ## Usage
 
@@ -30,12 +30,12 @@ download from `dist`
 
 ```js
 var gremlins = require('gremlins'),
-  gremlinsInterests = require('gremlins-interests');
+  dispatcher = require('gremlins-dispatcher');
   
 gremlins.create({
-    mixins: [gremlinsInterests],
+    mixins: [dispatcher],
     name: 'listener',
-    interests: {
+    handlers: {
       'FOO': 'onFoo'
     },
     onFoo(data) {
@@ -44,7 +44,7 @@ gremlins.create({
 });  
 
 gremlins.create({
-    mixins: [gremlinsInterests],
+    mixins: [dispatcher],
     name: 'dispatcher',
     someAction(){
       this.emit('FOO', {
