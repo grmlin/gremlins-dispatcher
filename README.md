@@ -30,12 +30,11 @@ download from `dist`
 
 ```js
 var gremlins = require('gremlins'),
-  dispatcher = require('gremlins-dispatcher'); // window.gremlinsDispatcher without amd/commonjs
+  dispatcher = require('gremlins-dispatcher'); 
   
-gremlins.create({
+gremlins.create('listener-gremlin', {
     mixins: [dispatcher],
-    name: 'listener',
-    handlers: {
+    listeners: {
       'FOO': 'onFoo'
     },
     onFoo(data) {
@@ -43,9 +42,8 @@ gremlins.create({
     }
 });  
 
-gremlins.create({
+gremlins.create('dispatcher-gremlin', {
     mixins: [dispatcher],
-    name: 'dispatcher',
     someAction(){
       this.emit('FOO', {
         foo: 'foo'

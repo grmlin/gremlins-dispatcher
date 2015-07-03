@@ -7,7 +7,7 @@ var browserify = require('browserify');
 
 
 gulp.task('scriptsTest', function () {
-	return gulp.src('test/src/gremlins-interests.js')
+	return gulp.src('test/src/gremlins-dispatcher.js')
 		.pipe(through2.obj(function (file, enc, next) {
 			browserify(file.path, {
 				standalone: 'gremlinsDispatcher',
@@ -37,7 +37,7 @@ gulp.task('scripts', function () {
 					next(null, file);
 				});
 		}))
-		.pipe(rename('gremlins-interests.js'))
+		.pipe(rename('gremlins-dispatcher.js'))
 		.pipe(gulp.dest('./dist'));
 });
 

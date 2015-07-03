@@ -54,7 +54,7 @@ module.exports = {
 var gremlins = require("gremlins"),
     dispatcher = require("../../index");
 
-describe("gremlinjs-interests", function () {
+describe("gremlinjs-dispatcher", function () {
 
   it("augments gremlin instances", function (done) {
     var count = 0;
