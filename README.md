@@ -34,8 +34,10 @@ var gremlins = require('gremlins'),
   
 gremlins.create('listener-gremlin', {
     mixins: [dispatcher],
-    listeners: {
-      'FOO': 'onFoo'
+    getListeners(){
+        return {
+          'FOO': 'onFoo'
+        };
     },
     onFoo(data) {
         console.log(data.foo);
