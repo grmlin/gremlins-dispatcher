@@ -7,16 +7,6 @@ gremlin.js dispatcher mixin. Easy component interoperability.
 ### NPM
 
     $ npm install gremlins-dispatcher
-    
-### Bower
-    
-    $ bower install gremlins-dispatcher
-    
-### Classic
-
-download from `dist` 
-
-    <script src="gremlins-dispatcher.js" />
 
 ## Usage
 
@@ -29,8 +19,8 @@ download from `dist`
 ```
 
 ```js
-var gremlins = require('gremlins'),
-  dispatcher = require('gremlins-dispatcher'); 
+const gremlins = require('gremlins');
+const dispatcher = require('gremlins-dispatcher');
   
 gremlins.create('listener-gremlin', {
     mixins: [dispatcher],
@@ -46,6 +36,9 @@ gremlins.create('listener-gremlin', {
 
 gremlins.create('dispatcher-gremlin', {
     mixins: [dispatcher],
+
+    ...
+
     someAction(){
       this.emit('FOO', {
         foo: 'foo'
