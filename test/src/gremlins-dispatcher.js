@@ -1,7 +1,7 @@
 'use strict';
 
 var gremlins   = require('gremlins'),
-    dispatcher = require('../../index');
+    dispatcher = require('../../lib/index');
 
 describe('gremlinjs-dispatcher', function () {
 
@@ -10,8 +10,10 @@ describe('gremlinjs-dispatcher', function () {
 
     gremlins.create('interests-gremlin', {
       mixins: [dispatcher],
-      listeners: {
-        'FOO': 'onFoo'
+      getListeners(){
+        return {
+          'FOO': 'onFoo'
+        };
       },
       initialize() {
         try {
