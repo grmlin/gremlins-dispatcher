@@ -4,11 +4,15 @@ gremlin.js dispatcher mixin. Easy component interoperability.
 
 ## Installation
 
+**requires `gremlins@1.1.x`**
+
 ### NPM
 
     $ npm install gremlins-dispatcher
 
 ## Usage
+
+*At the moment, all listeners will be called, even if the component is not added to the visual dom*
 
 ```html
 <listener-gremlin>
@@ -46,3 +50,7 @@ gremlins.create('dispatcher-gremlin', {
     }
 });
 ```
+
+## TODO
+
+- add some sort of queue to have a consistent state across all components, even if they are not created yet.
