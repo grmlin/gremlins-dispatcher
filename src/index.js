@@ -2,40 +2,44 @@
 var cache = {};
 
 var Emitter = {
-    registerHandler(handlerName, handler, spec) {
-        if (typeof handler !== 'function') {
-            throw new Error(`Handler for the interest ${handlerName} is missing!`);
-        }
-        cache[handlerName] = cache[handlerName] || [];
-        cache[handlerName].push({
-            handler: handler,
-            spec: spec
-        });
-    },
-    dispatch(handlerName, data) {
-        if (cache[handlerName] !== undefined) {
-            window.setTimeout(()=> {
-                cache[handlerName].forEach(callbackObj => callbackObj.handler.call(callbackObj.spec, data));
-            }, 10);
-        }
+  registerHandler(handlerName, handler, component) {
+    if (typeof handler !== 'function') {
+      throw new Error(`<${component.name} /> — Handler for the interest ${handlerName} is missing!`);
     }
+    cache[handlerName] = cache[handlerName] || [];
+    cache[handlerName].push({
+      handler: handler,
+      component: component
+    });
+  },
+  dispatch(handlerName, data, component) {
+    if (cache[handlerName] !== undefined) {
+      window.setTimeout(()=> {
+        cache[handlerName].forEach(callbackObj => {
+          if (callbackObj.component !== component) {
+            callbackObj.handler.call(callbackObj.component, data);
+          }
+        });
+      }, 10);
+    }
+  }
 };
 
-function addInterests(spec) {
-    var listeners = typeof spec.getListeners === 'function' ? spec.getListeners() : {};
+function addInterests(component) {
+  var listeners = typeof component.getListeners === 'function' ? component.getListeners() : {};
 
-    for (var handler in listeners) {
-        if (listeners.hasOwnProperty(handler)) {
-            Emitter.registerHandler(handler, spec[listeners[handler]], spec);
-        }
+  for (var handler in listeners) {
+    if (listeners.hasOwnProperty(handler)) {
+      Emitter.registerHandler(handler, component[listeners[handler]], component);
     }
+  }
 }
 
 module.exports = {
-    initialize() {
-        addInterests(this);
-    },
-    emit(eventName, eventData) {
-        Emitter.dispatch(eventName, eventData);
-    }
+  created() {
+    addInterests(this);
+  },
+  emit(eventName, eventData) {
+    Emitter.dispatch(eventName, eventData, this);
+  }
 };
