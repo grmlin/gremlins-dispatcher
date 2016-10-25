@@ -15,7 +15,7 @@ describe('gremlinjs-dispatcher', function () {
           'FOO': 'onFoo'
         };
       },
-      initialize() {
+      created() {
         try {
           expect(this.emit).to.be.a('function');
           count++;//done();
@@ -38,8 +38,16 @@ describe('gremlinjs-dispatcher', function () {
 
     gremlins.create('interests2-gremlin', {
       mixins: [dispatcher],
-      initialize() {
+      getListeners(){
+        return {
+          'FOO': 'onFoo'
+        };
+      },
+      created() {
         window.setTimeout(()=>this.emit('FOO', {foo: 'foo'}), 500);
+      },
+      onFoo() {
+        throw new Error('The dispatching components callback should not be called');
       }
     });
 
