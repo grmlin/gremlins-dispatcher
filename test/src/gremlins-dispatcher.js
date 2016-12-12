@@ -26,10 +26,10 @@ describe('gremlinjs-dispatcher', function () {
       onFoo(data) {
         count++;
         try {
-          expect(count).to.equal(2);
+          expect(count).to.equal(3);
           expect(data).to.be.an('object');
           expect(data.foo).to.equal('foo');
-          done();
+          setTimeout(done, 500);
         } catch (e) {
           done(e);
         }
@@ -53,6 +53,7 @@ describe('gremlinjs-dispatcher', function () {
 
     var el  = document.createElement('interests-gremlin');
     var el2 = document.createElement('interests2-gremlin');
+    var el3 = document.createElement('interests-gremlin');
     document.body.appendChild(el);
     document.body.appendChild(el2);
   });
