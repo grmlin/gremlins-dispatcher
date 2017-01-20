@@ -24,7 +24,6 @@ var Emitter = {
     }
   },
   dispatch(handlerName, data, component) {
-    console.log('dispatching', handlerName)
     if (cache[ handlerName ] !== undefined) {
       window.setTimeout(() => {
         cache[ handlerName ].forEach(callbackObj => {
