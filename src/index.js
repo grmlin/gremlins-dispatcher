@@ -12,11 +12,23 @@ var Emitter = {
       component: component
     });
   },
+  unregisterHandler(handlerName, handler, component) {
+    cache[ handlerName ] = cache[ handlerName ] || [];
+    if (cache[ handlerName ] !== undefined) {
+      cache[ handlerName ] = cache[ handlerName ].filter(callbackObj => {
+        const currentHandler = callbackObj.handler;
+        const currentComponent = callbackObj.component;
+
+        return currentHandler !== handler && currentComponent !== component;
+      });
+    }
+  },
   dispatch(handlerName, data, component) {
+    console.log('dispatching', handlerName)
     if (cache[ handlerName ] !== undefined) {
       window.setTimeout(() => {
         cache[ handlerName ].forEach(callbackObj => {
-          if (callbackObj.component !== component && callbackObj.component.__dispatcherActive) {
+          if (callbackObj.component !== component) {
             callbackObj.handler.call(callbackObj.component, data);
           }
         });
@@ -35,16 +47,21 @@ function addInterests(component) {
   }
 }
 
+function removeInterests(component) {
+  var listeners = typeof component.getListeners === 'function' ? component.getListeners() : {};
+  for (var handler in listeners) {
+    if (listeners.hasOwnProperty(handler)) {
+      Emitter.unregisterHandler(handler, component[ listeners[ handler ] ], component);
+    }
+  }
+}
+
 module.exports = {
-  created() {
-    this.__dispatcherActive = false;
+  attached() {
     addInterests(this);
   },
-  attached() {
-    this.__dispatcherActive = true;
-  },
   detached() {
-    this.__dispatcherActive = false;
+    removeInterests(this);
   },
   emit(eventName, eventData) {
     Emitter.dispatch(eventName, eventData, this);
