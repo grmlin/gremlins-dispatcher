@@ -1,26 +1,24 @@
 'use strict';
-var cache = {};
+const cache = {};
 
-var Emitter = {
+const Emitter = {
   registerHandler(handlerName, handler, component) {
     if (typeof handler !== 'function') {
       throw new Error(`<${component.name} /> — Handler for the interest ${handlerName} is missing!`);
     }
-    cache[ handlerName ] = cache[ handlerName ] || [];
+
+    if (cache[ handlerName ] === undefined) {
+      cache[ handlerName ] = [];
+    }
+
     cache[ handlerName ].push({
       handler: handler,
       component: component
     });
   },
-  unregisterHandler(handlerName, handler, component) {
-    cache[ handlerName ] = cache[ handlerName ] || [];
+  unregisterHandler(handlerName, component) {
     if (cache[ handlerName ] !== undefined) {
-      cache[ handlerName ] = cache[ handlerName ].filter(callbackObj => {
-        const currentHandler = callbackObj.handler;
-        const currentComponent = callbackObj.component;
-
-        return currentHandler !== handler && currentComponent !== component;
-      });
+      cache[ handlerName ] = cache[ handlerName ].filter(callbackObj => callbackObj.component !== component);
     }
   },
   dispatch(handlerName, data, component) {
@@ -37,20 +35,22 @@ var Emitter = {
 };
 
 function addInterests(component) {
-  var listeners = typeof component.getListeners === 'function' ? component.getListeners() : {};
+  const listeners = typeof component.getListeners === 'function' ? component.getListeners() : {};
 
-  for (var handler in listeners) {
+  for (const handler in listeners) {
     if (listeners.hasOwnProperty(handler)) {
       Emitter.registerHandler(handler, component[ listeners[ handler ] ], component);
+    } else {
+      console.warn(`registering interest "${handler}" failed`, component)
     }
   }
 }
 
 function removeInterests(component) {
-  var listeners = typeof component.getListeners === 'function' ? component.getListeners() : {};
-  for (var handler in listeners) {
+  const listeners = typeof component.getListeners === 'function' ? component.getListeners() : {};
+  for (const handler in listeners) {
     if (listeners.hasOwnProperty(handler)) {
-      Emitter.unregisterHandler(handler, component[ listeners[ handler ] ], component);
+      Emitter.unregisterHandler(handler, component);
     }
   }
 }
